@@ -1,0 +1,17 @@
+{
+    "nom": "Nom",
+    "username": "Nom d'utilisateur",
+    "email": "Email",
+    "password": "Mot de passe",
+    "sign_up": "S'inscrire",
+    "already_hade_account": "Vous avez déjà un compte",
+    "sign_instead": "Se connecter",
+    "remember_me": "Se Souvenir",
+    "forgot_password": "Mot de passe oublié",
+    "new_plateform": "Nouveau sur la plateforme",
+    "create_account": "Créer un compte",
+    "login": "Se connecter",
+    "field_required": "Ce champ est requis",
+    "login_error": "Connexion réfusé. Ressayer!",
+    "patienter": "Veuillez patienter..."
+}
