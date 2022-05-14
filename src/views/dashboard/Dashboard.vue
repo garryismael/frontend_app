@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="forfaits"
     sort-by="calories"
     class="elevation-1"
   >
@@ -23,38 +23,66 @@
 
             <v-card-text>
               <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Dessert name"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                <v-form ref="form">
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.forfait_name"
+                        label="Nom"
+                        :rules="formRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.typeData"
+                        label="Type de données"
+                        :rules="formRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.limiteMax"
+                        label="Taille Maximale"
+                        :rules="formRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.price"
+                        label="Prix"
+                        :rules="formRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.emplacement"
+                        label="Emplacement"
+                        :rules="formRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.duration"
+                        label="Durée"
+                        :rules="formRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.extension"
+                        label="Extension"
+                        :rules="formRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.priceUnit"
+                        label="Prix Unitaire"
+                        :rules="formRules"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-form>
               </v-container>
             </v-card-text>
 
@@ -88,15 +116,14 @@
       <v-icon small class="mr-2" @click="editItem(item)">
         {{ icons.mdiPencil }}
       </v-icon>
-        <v-icon small @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize"> Reset </v-btn>
+      <v-icon small @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
     </template>
   </v-data-table>
 </template>
 <script>
 import { mdiPencil, mdiDelete } from "@mdi/js";
+import { mapActions, mapGetters } from "vuex";
+import { isRequired } from "@/utils/validators";
 
 export default {
   data: () => ({
@@ -104,39 +131,56 @@ export default {
     dialogDelete: false,
     headers: [
       { text: "Id", value: "id" },
-      { text: "Nom", value: "nom" },
-      { text: "Type de données", value: "type" },
-      { text: "Taille Maximal", value: "taille" },
+      { text: "Nom", value: "forfait_name" },
+      { text: "Type de données", value: "typeData" },
+      { text: "Taille Maximal", value: "limiteMax" },
+      { text: "Prix", value: "price" },
       { text: "Emplacement", value: "emplacement" },
-      { text: "Durée", value: "duree" },
-      { text: "actions", value: "actions" },
+      { text: "Durée", value: "duration" },
+      { text: "Extensions", value: "extension" },
+      { text: "Prix Unitaire", value: "priceUnit" },
+      { text: "Actions", value: "actions" },
     ],
-    desserts: [],
+    forfaits: [],
     editedIndex: -1,
     editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      id: -1,
+      forfait_name: "",
+      limiteMax: 0,
+      typeData: 0,
+      price: 0,
+      emplacement: "",
+      duration: 0,
+      extension: "",
+      priceUnit: "",
+      actions: 0,
     },
     defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      id: -1,
+      forfait_name: "",
+      limiteMax: "",
+      typeData: 0,
+      price: 0,
+      emplacement: "",
+      duration: 0,
+      extension: "",
+      priceUnit: "",
+      actions: 0,
     },
     icons: {
       mdiPencil,
       mdiDelete,
     },
+    formRules: [isRequired()],
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1
+        ? "Nouveau Utilisateur"
+        : "Edition Utilisateur";
     },
+    ...mapGetters("forfait", ["loaded", "getForfaits"]),
   },
 
   watch: {
@@ -148,39 +192,31 @@ export default {
     },
   },
 
-  created() {
-    this.initialize();
+  async created() {
+    await this.initialize();
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          id: 1,
-          nom: 159,
-          type: 6.0,
-          taille: 24,
-          emplacement: "La Lune",
-          duree: "Durée",
-          prix: 300,
-        },
-      ];
+    ...mapActions("forfait", ["get_forfaits", "add_forfaits"]),
+    async initialize() {
+      await this.get_forfaits();
+      this.forfaits = this.getForfaits;
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.forfaits.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.forfaits.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
+      this.forfaits.splice(this.editedIndex, 1);
       this.closeDelete();
     },
 
@@ -200,13 +236,16 @@ export default {
       });
     },
 
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
+    async save() {
+      if (this.$refs.form.validate()) {
+        if (this.editedIndex > -1) {
+          Object.assign(this.forfaits[this.editedIndex], this.editedItem);
+        } else {
+          await this.add_forfaits({ data: this.editedItem });
+          this.forfaits = this.getForfaits;
+        }
+        this.close();
       }
-      this.close();
     },
   },
 };

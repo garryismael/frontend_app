@@ -2,6 +2,7 @@ import i18n from "@/i18n";
 import Vue from "vue";
 import Vuex from "vuex";
 import AuthStore from "./modules/auth";
+import ForfaitStore from './modules/forfait';
 
 Vue.use(Vuex);
 
@@ -10,6 +11,10 @@ export default new Vuex.Store({
         auth: {
             namespaced: true,
             ...AuthStore,
+        },
+        forfait: {
+            namespaced: true,
+            ...ForfaitStore
         },
         traduction: {
             namespaced: true,

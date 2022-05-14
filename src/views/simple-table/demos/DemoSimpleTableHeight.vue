@@ -3,40 +3,23 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-uppercase">
-            Dessert (100g serving)
-          </th>
-          <th class="text-center text-uppercase">
-            Calories
-          </th>
-          <th class="text-center text-uppercase">
-            Fat (g)
-          </th>
-          <th class="text-center text-uppercase">
-            Carbs (g)
-          </th>
-          <th class="text-center text-uppercase">
-            Protein (g)
-          </th>
+          <th class="text-uppercase">ID</th>
+          <th class="text-center text-uppercase">Nom</th>
+          <th class="text-center text-uppercase">Prénom</th>
+          <th class="text-center text-uppercase">Email</th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="item in desserts"
-          :key="item.dessert"
-        >
-          <td>{{ item.dessert }}</td>
+        <tr v-for="item in users" :key="item.id">
+          <td>{{ item.id }}</td>
           <td class="text-center">
-            {{ item.calories }}
+            {{ item.nom }}
           </td>
           <td class="text-center">
-            {{ item.fat }}
+            {{ item.prenom }}
           </td>
           <td class="text-center">
-            {{ item.carbs }}
-          </td>
-          <td class="text-center">
-            {{ item.protein }}
+            {{ item.email }}
           </td>
         </tr>
       </tbody>
@@ -45,49 +28,26 @@
 </template>
 
 <script>
+import { mdiEye } from "@mdi/js";
 export default {
+  data: () => ({
+    icon_eye: mdiEye,
+  }),
   setup() {
-    const desserts = [
+    const users = [
       {
-        dessert: 'Frozen Yogurt',
-        calories: 159,
-        fat: 6,
-        carbs: 24,
-        protein: 4,
+        id: 1,
+        nom: "Ismael",
+        prenom: "garry",
+        email: "tahinjanaharygarry@gmail.com",
+        image:
+          "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200",
       },
-      {
-        dessert: 'Ice cream sandwich',
-        calories: 237,
-        fat: 6,
-        carbs: 24,
-        protein: 4,
-      },
-      {
-        dessert: 'Eclair',
-        calories: 262,
-        fat: 6,
-        carbs: 24,
-        protein: 4,
-      },
-      {
-        dessert: 'Cupcake',
-        calories: 305,
-        fat: 6,
-        carbs: 24,
-        protein: 4,
-      },
-      {
-        dessert: 'Gingerbread',
-        calories: 356,
-        fat: 6,
-        carbs: 24,
-        protein: 4,
-      },
-    ]
+    ];
 
     return {
-      desserts,
-    }
+      users,
+    };
   },
-}
+};
 </script>

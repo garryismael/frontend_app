@@ -8,7 +8,7 @@
       absolute
       color="transparent"
     >
-      <div class="boxed-container w-full">
+      <div class="w-full">
         <div class="d-flex align-center mx-6">
           <!-- Left Content -->
           <v-app-bar-nav-icon
@@ -27,25 +27,8 @@
           <v-spacer></v-spacer>
 
           <!-- Right Content -->
-          <a
-            href="https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free"
-            target="_blank"
-            rel="nofollow"
-          >
-            <v-icon class="ms-6 me-4">
-              {{ icons.mdiGithub }}
-            </v-icon>
-          </a>
           <theme-switcher></theme-switcher>
-          <v-btn
-            icon
-            small
-            class="ms-3"
-          >
-            <v-icon>
-              {{ icons.mdiBellOutline }}
-            </v-icon>
-          </v-btn>
+
           <app-bar-user-menu></app-bar-user-menu>
         </div>
       </div>
