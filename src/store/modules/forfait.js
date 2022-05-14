@@ -60,7 +60,7 @@ const ForfaitStore = {
 				return success;
 			}
 		},
-		async edit_forfaits({ commit }, { index, data }) {
+		async edit_forfait({ commit }, { index, data }) {
 			let success = false;
 			try {
 				const response = await ForfaitService.putForfaits(data);
