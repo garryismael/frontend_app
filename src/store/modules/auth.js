@@ -7,7 +7,7 @@ const TOKEN = "token";
 
 const AuthStore = {
     state: {
-        token: localStorage.getItem("token") || null,
+        token: localStorage.getItem("token") || "token",
         next: null,
     },
     getters: {

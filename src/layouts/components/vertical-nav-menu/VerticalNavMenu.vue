@@ -29,57 +29,19 @@
     <!-- Navigation Items -->
     <v-list expand shaped class="vertical-nav-menu-items pr-5">
       <nav-menu-link
-        title="Dashboard"
+        title="Forfait"
         :to="{ name: 'dashboard' }"
         :icon="icons.mdiHomeOutline"
       ></nav-menu-link>
       <nav-menu-link
-        title="Account Settings"
-        :to="{ name: 'account-settings' }"
-        :icon="icons.mdiAccountCogOutline"
-      ></nav-menu-link>
-      <nav-menu-group title="Pages" :icon="icons.mdiFileOutline">
-        <nav-menu-link
-          title="Login"
-          :to="{ name: 'login' }"
-          target="_blank"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Register"
-          :to="{ name: 'register' }"
-          target="_blank"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Error"
-          :to="{ name: 'error-404' }"
-          target="_blank"
-        ></nav-menu-link>
-      </nav-menu-group>
-      <nav-menu-section-title title="USER INTERFACE"></nav-menu-section-title>
-      <nav-menu-link
-        title="Typography"
-        :to="{ name: 'typography' }"
-        :icon="icons.mdiAlphaTBoxOutline"
-      ></nav-menu-link>
-      <nav-menu-link
-        title="Icons"
-        :to="{ name: 'icons' }"
-        :icon="icons.mdiEyeOutline"
-      ></nav-menu-link>
-      <nav-menu-link
-        title="Cards"
-        :to="{ name: 'cards' }"
-        :icon="icons.mdiCreditCardOutline"
-      ></nav-menu-link>
-      <nav-menu-link
-        title="Tables"
+        title="Utilisateur"
         :to="{ name: 'simple-table' }"
         :icon="icons.mdiTable"
       ></nav-menu-link>
       <nav-menu-link
-        title="Form Layouts"
-        :to="{ name: 'form-layouts' }"
-        :icon="icons.mdiFormSelect"
+        title="Configuration"
+        :to="{ name: 'account-settings' }"
+        :icon="icons.mdiAccountCogOutline"
       ></nav-menu-link>
     </v-list>
   </v-navigation-drawer>

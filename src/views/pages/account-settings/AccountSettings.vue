@@ -29,9 +29,6 @@
         <account-settings-security></account-settings-security>
       </v-tab-item>
 
-      <v-tab-item>
-        <account-settings-info :information-data="accountSettingData.information"></account-settings-info>
-      </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
@@ -43,13 +40,11 @@ import { ref } from '@vue/composition-api'
 // demos
 import AccountSettingsAccount from './AccountSettingsAccount.vue'
 import AccountSettingsSecurity from './AccountSettingsSecurity.vue'
-import AccountSettingsInfo from './AccountSettingsInfo.vue'
 
 export default {
   components: {
     AccountSettingsAccount,
     AccountSettingsSecurity,
-    AccountSettingsInfo,
   },
   setup() {
     const tab = ref('')
@@ -58,7 +53,6 @@ export default {
     const tabs = [
       { title: 'Account', icon: mdiAccountOutline },
       { title: 'Security', icon: mdiLockOpenOutline },
-      { title: 'Info', icon: mdiInformationOutline },
     ]
 
     // account settings data

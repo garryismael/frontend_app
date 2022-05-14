@@ -1,182 +1,213 @@
 <template>
-  <v-row>
-    <v-col
-      cols="12"
-      md="4"
-    >
-      <dashboard-congratulation-john></dashboard-congratulation-john>
-    </v-col>
-    <v-col
-      cols="12"
-      md="8"
-    >
-      <dashboard-statistics-card></dashboard-statistics-card>
-    </v-col>
+  <v-data-table
+    :headers="headers"
+    :items="desserts"
+    sort-by="calories"
+    class="elevation-1"
+  >
+    <template v-slot:top>
+      <v-toolbar flat>
+        <v-toolbar-title>Tous les forfaits</v-toolbar-title>
+        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="500px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+              Nouveau
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="text-h5">{{ formTitle }}</span>
+            </v-card-title>
 
-    <v-col
-      cols="12"
-      sm="6"
-      md="4"
-    >
-      <dashboard-weekly-overview></dashboard-weekly-overview>
-    </v-col>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.name"
+                      label="Dessert name"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.calories"
+                      label="Calories"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.fat"
+                      label="Fat (g)"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.carbs"
+                      label="Carbs (g)"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.protein"
+                      label="Protein (g)"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
 
-    <v-col
-      cols="12"
-      md="4"
-      sm="6"
-    >
-      <dashboard-card-total-earning></dashboard-card-total-earning>
-    </v-col>
-
-    <v-col
-      cols="12"
-      md="4"
-    >
-      <v-row class="match-height">
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <statistics-card-vertical
-            :change="totalProfit.change"
-            :color="totalProfit.color"
-            :icon="totalProfit.icon"
-            :statistics="totalProfit.statistics"
-            :stat-title="totalProfit.statTitle"
-            :subtitle="totalProfit.subtitle"
-          ></statistics-card-vertical>
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <statistics-card-vertical
-            :change="totalSales.change"
-            :color="totalSales.color"
-            :icon="totalSales.icon"
-            :statistics="totalSales.statistics"
-            :stat-title="totalSales.statTitle"
-            :subtitle="totalSales.subtitle"
-          ></statistics-card-vertical>
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <statistics-card-vertical
-            :change="newProject.change"
-            :color="newProject.color"
-            :icon="newProject.icon"
-            :statistics="newProject.statistics"
-            :stat-title="newProject.statTitle"
-            :subtitle="newProject.subtitle"
-          ></statistics-card-vertical>
-        </v-col>
-
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <statistics-card-vertical
-            :change="salesQueries.change"
-            :color="salesQueries.color"
-            :icon="salesQueries.icon"
-            :statistics="salesQueries.statistics"
-            :stat-title="salesQueries.statTitle"
-            :subtitle="salesQueries.subtitle"
-          ></statistics-card-vertical>
-        </v-col>
-      </v-row>
-    </v-col>
-
-    <v-col
-      cols="12"
-      md="4"
-    >
-      <dashboard-card-sales-by-countries></dashboard-card-sales-by-countries>
-    </v-col>
-    <v-col
-      cols="12"
-      md="8"
-    >
-      <dashboard-card-deposit-and-withdraw></dashboard-card-deposit-and-withdraw>
-    </v-col>
-    <v-col cols="12">
-      <dashboard-datatable></dashboard-datatable>
-    </v-col>
-  </v-row>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
+              <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-card>
+            <v-card-title class="text-h5"
+              >Are you sure you want to delete this item?</v-card-title
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeDelete"
+                >Cancel</v-btn
+              >
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                >OK</v-btn
+              >
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-icon small class="mr-2" @click="editItem(item)">
+        {{ icons.mdiPencil }}
+      </v-icon>
+        <v-icon small @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
+    </template>
+    <template v-slot:no-data>
+      <v-btn color="primary" @click="initialize"> Reset </v-btn>
+    </template>
+  </v-data-table>
 </template>
-
 <script>
-// eslint-disable-next-line object-curly-newline
-import { mdiPoll, mdiLabelVariantOutline, mdiCurrencyUsd, mdiHelpCircleOutline } from '@mdi/js'
-import StatisticsCardVertical from '@/components/statistics-card/StatisticsCardVertical.vue'
-
-// demos
-import DashboardCongratulationJohn from './DashboardCongratulationJohn.vue'
-import DashboardStatisticsCard from './DashboardStatisticsCard.vue'
-import DashboardCardTotalEarning from './DashboardCardTotalEarning.vue'
-import DashboardCardDepositAndWithdraw from './DashboardCardDepositAndWithdraw.vue'
-import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue'
-import DashboardWeeklyOverview from './DashboardWeeklyOverview.vue'
-import DashboardDatatable from './DashboardDatatable.vue'
+import { mdiPencil, mdiDelete } from "@mdi/js";
 
 export default {
-  components: {
-    StatisticsCardVertical,
-    DashboardCongratulationJohn,
-    DashboardStatisticsCard,
-    DashboardCardTotalEarning,
-    DashboardCardDepositAndWithdraw,
-    DashboardCardSalesByCountries,
-    DashboardWeeklyOverview,
-    DashboardDatatable,
+  data: () => ({
+    dialog: false,
+    dialogDelete: false,
+    headers: [
+      { text: "Id", value: "id" },
+      { text: "Nom", value: "nom" },
+      { text: "Type de données", value: "type" },
+      { text: "Taille Maximal", value: "taille" },
+      { text: "Emplacement", value: "emplacement" },
+      { text: "Durée", value: "duree" },
+      { text: "actions", value: "actions" },
+    ],
+    desserts: [],
+    editedIndex: -1,
+    editedItem: {
+      name: "",
+      calories: 0,
+      fat: 0,
+      carbs: 0,
+      protein: 0,
+    },
+    defaultItem: {
+      name: "",
+      calories: 0,
+      fat: 0,
+      carbs: 0,
+      protein: 0,
+    },
+    icons: {
+      mdiPencil,
+      mdiDelete,
+    },
+  }),
+
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    },
   },
-  setup() {
-    const totalProfit = {
-      statTitle: 'Total Profit',
-      icon: mdiPoll,
-      color: 'success',
-      subtitle: 'Weekly Project',
-      statistics: '$25.6k',
-      change: '+42%',
-    }
 
-    const totalSales = {
-      statTitle: 'Refunds',
-      icon: mdiCurrencyUsd,
-      color: 'secondary',
-      subtitle: 'Past Month',
-      statistics: '$78',
-      change: '-15%',
-    }
-
-    // vertical card options
-    const newProject = {
-      statTitle: 'New Project',
-      icon: mdiLabelVariantOutline,
-      color: 'primary',
-      subtitle: 'Yearly Project',
-      statistics: '862',
-      change: '-18%',
-    }
-
-    const salesQueries = {
-      statTitle: 'Sales Quries',
-      icon: mdiHelpCircleOutline,
-      color: 'warning',
-      subtitle: 'Last week',
-      statistics: '15',
-      change: '-18%',
-    }
-
-    return {
-      totalProfit,
-      totalSales,
-      newProject,
-      salesQueries,
-    }
+  watch: {
+    dialog(val) {
+      val || this.close();
+    },
+    dialogDelete(val) {
+      val || this.closeDelete();
+    },
   },
-}
+
+  created() {
+    this.initialize();
+  },
+
+  methods: {
+    initialize() {
+      this.desserts = [
+        {
+          id: 1,
+          nom: 159,
+          type: 6.0,
+          taille: 24,
+          emplacement: "La Lune",
+          duree: "Durée",
+          prix: 300,
+        },
+      ];
+    },
+
+    editItem(item) {
+      this.editedIndex = this.desserts.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+
+    deleteItem(item) {
+      this.editedIndex = this.desserts.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
+    },
+
+    deleteItemConfirm() {
+      this.desserts.splice(this.editedIndex, 1);
+      this.closeDelete();
+    },
+
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+      } else {
+        this.desserts.push(this.editedItem);
+      }
+      this.close();
+    },
+  },
+};
 </script>
