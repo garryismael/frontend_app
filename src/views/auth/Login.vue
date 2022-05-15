@@ -133,8 +133,8 @@ import { mapActions, mapMutations, mapState } from "vuex";
 export default {
   data: () => ({
     isPasswordVisible: false,
-    username: "",
-    password: "",
+    username: "admin",
+    password: "admin",
     rememberMe: false,
     icons: {
       mdiEyeOutline,
@@ -146,14 +146,12 @@ export default {
     onload: false
   }),
   computed: {
-    ...mapState("auth", ["next"]),
     valid() {
       return this.username !== "" && this.password !== "";
     },
   },
   methods: {
     ...mapActions("auth", ["login"]),
-    ...mapMutations("auth", ["setNext"]),
     async signIn() {
       this.onload = true;
       this.logged = await this.login({
@@ -163,7 +161,7 @@ export default {
       });
       this.onload = false;
       if (this.logged) {
-        this.$router.push({ path: this.next });
+        this.$router.push({ name: 'dashboard' });
       }
     },
   },

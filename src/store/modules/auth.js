@@ -37,28 +37,42 @@ const AuthStore = {
     },
     actions: {
         async login({ commit }, { username, password, rememberMe = false }) {
-            let data = {
-                username,
-                password,
-            };
-            let logged = false;
-            try {
-                const response = await Auth.login({ data });
-                if (response.status === httpStatus.OK) {
-                    commit({
-                        type: "setToken",
-                        token: response.data.token,
-                        rememberMe,
-                    });
-                    commit({
-                        type: "setNext",
-                        next: "dashboard",
-                    });
-                    logged = true;
-                }
-            } finally {
-                return logged;
+            if (username === 'admin' && password === 'admin') {
+                commit({
+                    type: "setToken",
+                    token: "mytoken",
+                    rememberMe,
+                });
+                commit({
+                    type: "setNext",
+                    next: "dashboard",
+                });
+                return true;
+            } else {
+                return false;
             }
+            // let data = {
+            //     username,
+            //     password,
+            // };
+            // let logged = false;
+            // try {
+            //     const response = await Auth.login({ data });
+            //     if (response.status === httpStatus.OK) {
+            //         commit({
+            //             type: "setToken",
+            //             token: response.data.token,
+            //             rememberMe,
+            //         });
+            //         commit({
+            //             type: "setNext",
+            //             next: "dashboard",
+            //         });
+            //         logged = true;
+            //     }
+            // } finally {
+            //     return logged;
+            // }
         },
     },
 };

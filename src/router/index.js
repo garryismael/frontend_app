@@ -9,25 +9,18 @@ const requiresAuth = (to, _, next) => {
     if (store.getters["auth/authentified"]) {
         next();
     } else {
-        if (to.path !== "/login") {
+        if (to.path !== "/admin/login") {
             store.commit({
                 type: "auth/setNext",
                 next: to.path,
             });
-            next({ path: "/login" });
+            next({ path: "/admin/login" });
         } else {
             next({ name: "login" });
         }
     }
 };
 
-const checkIfNotGoingToLogin = (to, _, next) => {
-    if (to.path === "/login") {
-        next({ name: "login" });
-    } else {
-        next({ name: "not_found_page" });
-    }
-};
 
 const requiresAnon = (_, from, next) => {
     if (!store.getters["auth/authentified"]) {
@@ -38,7 +31,7 @@ const requiresAnon = (_, from, next) => {
 };
 
 const routes = [{
-        path: "/",
+        path: "/admin/",
         component: () =>
             import ("@/layouts/Layout.vue"),
         beforeEnter: requiresAuth,
@@ -78,7 +71,7 @@ const routes = [{
         ],
     },
     {
-        path: "/login",
+        path: "/admin/login",
         name: "login",
         component: () =>
             import ("@/views/auth/Login.vue"),
@@ -88,7 +81,7 @@ const routes = [{
         beforeEnter: requiresAnon,
     },
     {
-        path: "/register",
+        path: "admin/register",
         name: "register",
         component: () =>
             import ("@/views/auth/Register.vue"),
@@ -98,7 +91,7 @@ const routes = [{
         beforeEnter: requiresAnon,
     },
     {
-        path: "/confirm-email",
+        path: "admin/confirm-email",
         name: "confirm_email",
         component: () =>
             import ("@/views/auth/Confirm.vue"),
