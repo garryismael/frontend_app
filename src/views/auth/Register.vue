@@ -14,7 +14,7 @@
               class="me-3"
             ></v-img>
 
-            <h2 class="text-2xl font-weight-semibold">Materio</h2>
+            <h2 class="text-2xl font-weight-semibold">Fahagola</h2>
           </router-link>
         </v-card-title>
 
@@ -71,7 +71,7 @@
               @click:append="isPasswordVisible = !isPasswordVisible"
             ></v-text-field>
 
-            <v-btn block color="primary" class="mt-6">
+            <v-btn block style="background: #ed156d;" class="mt-6 white--text">
               {{ $t("sign_up") }}
             </v-btn>
           </v-form>

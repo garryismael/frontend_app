@@ -12,7 +12,7 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+            <v-btn  dark class="mb-2" v-bind="attrs" v-on="on" style="background: #ed156d;">
               Nouveau
             </v-btn>
           </template>
@@ -193,7 +193,6 @@ export default {
   },
 
   async created() {
-    if (!this.loaded)
       await this.initialize();
   },
 

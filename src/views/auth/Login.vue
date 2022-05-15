@@ -16,17 +16,17 @@
               contain
               class="me-3"
             ></v-img>
-            <h2 class="text-2xl font-weight-semibold">Materio</h2>
+            <h2 class="text-2xl font-weight-semibold">Login</h2>
           </router-link>
         </v-card-title>
 
         <!-- title -->
         <v-card-text>
           <p class="text-2xl font-weight-semibold text--primary mb-2">
-            Welcome to Materio! 👋🏻
+            Hey Hey 👋🏻
           </p>
           <p class="mb-2">
-            Please sign-in to your account and start the adventure
+            Connectez-vous
           </p>
         </v-card-text>
 
@@ -74,8 +74,8 @@
 
             <v-btn
               block
-              color="primary"
-              class="mt-6"
+              style="background: #ed156d;"
+              class="mt-6 white--text"
               @click="signIn"
               :disabled="!valid"
               :loading="onload"

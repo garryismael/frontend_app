@@ -58,7 +58,7 @@ import {
   mdiFileOutline,
   mdiFormSelect,
   mdiAccountCogOutline,
-  mdiAccount
+  mdiAccount,
 } from "@mdi/js";
 import NavMenuSectionTitle from "./components/NavMenuSectionTitle.vue";
 import NavMenuGroup from "./components/NavMenuGroup.vue";
@@ -87,7 +87,7 @@ export default {
         mdiFileOutline,
         mdiFormSelect,
         mdiAccountCogOutline,
-        mdiAccount
+        mdiAccount,
       },
     };
   },
@@ -137,5 +137,11 @@ export default {
     left: 50%;
     transform: translateX(-50%);
   }
+}
+</style>
+
+<style scoped>
+.bg-gradient-primary {
+  background: #ed156d !important;
 }
 </style>

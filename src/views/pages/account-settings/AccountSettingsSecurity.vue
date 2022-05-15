@@ -14,7 +14,7 @@
                     ? icons.mdiEyeOffOutline
                     : icons.mdiEyeOutline
                 "
-                label="Current Password"
+                label="Mot de passe courant"
                 outlined
                 dense
                 @click:append="
@@ -31,10 +31,10 @@
                     ? icons.mdiEyeOffOutline
                     : icons.mdiEyeOutline
                 "
-                label="New Password"
+                label="Nouveau Mot de passe"
                 outlined
                 dense
-                hint="Make sure it's at least 8 characters."
+                hint="Au moins 8 charachtères."
                 persistent-hint
                 @click:append="isNewPasswordVisible = !isNewPasswordVisible"
               ></v-text-field>
@@ -48,7 +48,7 @@
                     ? icons.mdiEyeOffOutline
                     : icons.mdiEyeOutline
                 "
-                label="Confirm New Password"
+                label="Confirmer mot de passe"
                 outlined
                 dense
                 class="mt-3"
@@ -65,8 +65,8 @@
       <div class="pa-3">
         <!-- action buttons -->
         <v-card-text>
-          <v-btn color="primary" class="me-3 mt-3"> Save changes </v-btn>
-          <v-btn color="secondary" outlined class="mt-3"> Cancel </v-btn>
+          <v-btn style="background: #ed156d !important" class="me-3 mt-3"> Sauvegarder </v-btn>
+          <v-btn color="secondary" outlined class="mt-3"> Annuler </v-btn>
         </v-card-text>
       </div>
     </v-form>

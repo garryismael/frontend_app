@@ -15,14 +15,14 @@
       <!-- upload photo -->
       <div>
         <v-btn
-          color="primary"
+          style="background: #ed156d;"
           class="me-3 mt-5"
           @click="$refs.refInputEl.click()"
         >
           <v-icon class="d-sm-none">
             {{ icons.mdiCloudUploadOutline }}
           </v-icon>
-          <span class="d-none d-sm-block">Upload new photo</span>
+          <span class="d-none d-sm-block">Choisir un photo</span>
         </v-btn>
 
         <input
@@ -37,11 +37,8 @@
           outlined
           class="mt-5"
         >
-          Reset
+          Annuler
         </v-btn>
-        <p class="text-sm mt-5">
-          Allowed JPG, GIF or PNG. Max size of 800K
-        </p>
       </div>
     </v-card-text>
 
@@ -86,10 +83,10 @@
 
           <v-col cols="12">
             <v-btn
-              color="primary"
+              style="background: #ed156d"
               class="me-3 mt-4"
             >
-              Save changes
+              Sauvegarder
             </v-btn>
             <v-btn
               color="secondary"
@@ -98,7 +95,7 @@
               type="reset"
               @click.prevent="resetForm"
             >
-              Cancel
+              Annuler
             </v-btn>
           </v-col>
         </v-row>

@@ -1,5 +1,4 @@
 {
-  "name": "materio-free-vuetify-vuejs-admin-template",
   "version": "1.0.3",
   "private": false,
   "description": "Production ready carefully crafted most comprehensive admin template",
@@ -49,10 +48,7 @@
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.0"
   },
-  "bugs": {
-    "url": "https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free/issues"
-  },
-  "homepage": "https://themeselection.com/demo/materio-vuetify-vuejs-admin-template-free/demo/",
+  "homepage": "",
   "keywords": [
     "free template",
     "vuejs admin",
@@ -61,9 +57,5 @@
     "free vuejs admin",
     "free vuejs template"
   ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free"
-  }
+  "license": "MIT"
 }
