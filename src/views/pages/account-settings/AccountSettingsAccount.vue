@@ -22,7 +22,7 @@
           <v-icon class="d-sm-none">
             {{ icons.mdiCloudUploadOutline }}
           </v-icon>
-          <span class="d-none d-sm-block">Choisir un photo</span>
+          <span class="d-none d-sm-block">Choisir une photo</span>
         </v-btn>
 
         <input

@@ -51,8 +51,8 @@ export default {
 
     // tabs
     const tabs = [
-      { title: 'Account', icon: mdiAccountOutline },
-      { title: 'Security', icon: mdiLockOpenOutline },
+      { title: 'Compte', icon: mdiAccountOutline },
+      { title: 'Sécurité', icon: mdiLockOpenOutline },
     ]
 
     // account settings data
