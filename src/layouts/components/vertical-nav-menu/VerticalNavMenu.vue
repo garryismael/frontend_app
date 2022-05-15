@@ -35,7 +35,7 @@
       ></nav-menu-link>
       <nav-menu-link
         title="Utilisateur"
-        :to="{ name: 'simple-table' }"
+        :to="{ name: 'users' }"
         :icon="icons.mdiAccount"
       ></nav-menu-link>
       <nav-menu-link

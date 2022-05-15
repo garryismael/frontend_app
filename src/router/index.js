@@ -9,12 +9,12 @@ const requiresAuth = (to, _, next) => {
     if (store.getters["auth/authentified"]) {
         next();
     } else {
-        if (to.path !== "/admin/login") {
+        if (to.path !== "/login") {
             store.commit({
                 type: "auth/setNext",
                 next: to.path,
             });
-            next({ path: "/admin/login" });
+            next({ path: "/login" });
         } else {
             next({ name: "login" });
         }
@@ -31,7 +31,7 @@ const requiresAnon = (_, from, next) => {
 };
 
 const routes = [{
-        path: "/admin/",
+        path: "/",
         component: () =>
             import ("@/layouts/Layout.vue"),
         beforeEnter: requiresAuth,
@@ -46,8 +46,8 @@ const routes = [{
                 redirect: "dashboard",
             },
             {
-                path: "simple-table",
-                name: "simple-table",
+                path: "users",
+                name: "users",
                 component: () =>
                     import ("@/views/simple-table/SimpleTable.vue"),
             },
@@ -68,10 +68,14 @@ const routes = [{
                     layout: "blank",
                 },
             },
+            {
+                path: "*",
+                redirect: "error-404"
+            }
         ],
     },
     {
-        path: "/admin/login",
+        path: "/login",
         name: "login",
         component: () =>
             import ("@/views/auth/Login.vue"),
@@ -81,7 +85,7 @@ const routes = [{
         beforeEnter: requiresAnon,
     },
     {
-        path: "admin/register",
+        path: "/register",
         name: "register",
         component: () =>
             import ("@/views/auth/Register.vue"),
@@ -91,7 +95,7 @@ const routes = [{
         beforeEnter: requiresAnon,
     },
     {
-        path: "admin/confirm-email",
+        path: "/confirm-email",
         name: "confirm_email",
         component: () =>
             import ("@/views/auth/Confirm.vue"),
